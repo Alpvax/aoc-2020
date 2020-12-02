@@ -19,7 +19,7 @@ fn parse_pwd(line: &str) -> (bool, bool) {
     lazy_static! {
         static ref PATTERN: Regex = Regex::new(r"(\d+)-(\d+)\s([a-z]):\s([a-z]+)").unwrap();
     }
-    let caps = PATTERN.captures(line).unwrap();
+    let caps: regex::Captures = PATTERN.captures(line).unwrap();
     let s = caps.get(1).unwrap().as_str().parse().unwrap();
     let e = caps.get(2).unwrap().as_str().parse().unwrap();
     let c = caps.get(3).unwrap().as_str().chars().next().unwrap();
