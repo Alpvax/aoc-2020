@@ -2,6 +2,8 @@
 use std::fs;
 use std::io::{self, BufRead};
 
+pub mod cgol;
+
 pub fn parse_file<T>(fname: &str, f: fn(&str) -> T) -> T {
     //let args: Vec<String> = env::args().collect();
     f(&fs::read_to_string(fname).expect("Something went wrong reading the file"))
