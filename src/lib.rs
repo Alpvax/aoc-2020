@@ -2,7 +2,7 @@
 use std::fs;
 use std::io::{self, BufRead};
 
-pub mod cgol;
+pub mod grid;
 
 pub fn parse_file<T>(fname: &str, f: fn(&str) -> T) -> T {
     //let args: Vec<String> = env::args().collect();

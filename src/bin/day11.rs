@@ -1,43 +1,35 @@
+use rust_2020::grid::{Grid, Surroundings};
 use rust_2020::parse_file;
-use rust_2020::cgol::{EntryType, Grid};
-use std::convert::TryFrom;
-
-#[derive(Debug, Copy, Clone)]
-enum Seat {
-    None,
-    Empty,
-    Full,
-}
-impl EntryType for Seat {}
-impl TryFrom<char> for Seat {
-    type Error = char;
-
-    fn try_from(value: char) -> Result<Self, Self::Error> {
-        match value {
-            '.' => Ok(Self::None),
-            'L' => Ok(Self::Empty),
-            '#' => Ok(Self::Full),
-            _ => Err(value),
-        }
-    }
-}
-impl From<Seat> for char {
-    fn from(c: Seat) -> Self {
-        match c {
-            Seat::None => '.',
-            Seat::Empty => 'L',
-            Seat::Full => '#',
-        }
-    }
-}
 
 fn main() {
-    let grid: Grid<Seat> = parse_file("puzzle-input/day11.txt", |s| s.parse().unwrap());
-    println!("Grid: {0:?}\n\n{0}", grid);
-    /* Test conversion to-from char
-    println!(
-        ". => {:?}\nL => {:?}\n# => {:?}\n------------\nNone => {:?}\nEmpty => {:?}\nFull => {:?}\n============\n",
-        Seat::try_from('.'), Seat::try_from('L'), Seat::try_from('#'),
-        char::from(Seat::None), char::from(Seat::Empty), char::from(Seat::Full),
-    );*/
+    /*let test = "L.LL.LL.LL\n\
+    LLLLLLL.LL\n\
+    L.L.L..L..\n\
+    LLLL.LL.LL\n\
+    L.LL.LL.LL\n\
+    L.LLLLL.LL\n\
+    ..L.L.....\n\
+    LLLLLLLLLL\n\
+    L.LLLLLL.L\n\
+    L.LLLLL.LL";
+    let mut grid: Grid = test.parse().unwrap();*/
+    let mut grid: Grid = parse_file("puzzle-input/day11.txt", |s| s.parse().unwrap());
+    grid.default_char = '.';
+    let grid = grid; //Remove mutability
+                     /*println!("Grid: {0:?}\n\n{0}", grid);
+                     for (i, g) in grid.iter_changes(&map_seat).enumerate() {
+                         println!("\nAfter {}:\n{}", i + 1, g);
+                     }*/
+    let result = grid.iter_changes(&map_seat).last().unwrap();
+    println!("Part 1: {}\nPart 2: {}", result.count_char('#'), 0);
+}
+
+fn map_seat(s: Surroundings) -> char {
+    if s.value == 'L' && s.get_neighbour_count('#') == 0 {
+        '#'
+    } else if s.value == '#' && s.get_neighbour_count('#') >= 4 {
+        'L'
+    } else {
+        s.value
+    }
 }
