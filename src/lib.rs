@@ -4,9 +4,9 @@ use std::io::{self, BufRead};
 
 pub mod grid;
 
-pub fn parse_file<T>(fname: &str, f: fn(&str) -> T) -> T {
+pub fn parse_file(fname: &str) -> String {
     //let args: Vec<String> = env::args().collect();
-    f(&fs::read_to_string(fname).expect("Something went wrong reading the file"))
+    fs::read_to_string(fname).expect("Something went wrong reading the file")
 }
 
 pub fn read_lines(fname: &str) -> Box<dyn Iterator<Item = String>> {

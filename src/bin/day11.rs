@@ -13,7 +13,7 @@ fn main() {
     L.LLLLLL.L\n\
     L.LLLLL.LL";
     let mut grid: Grid = test.parse().unwrap();*/
-    let mut grid: Grid = parse_file("puzzle-input/day11.txt", |s| s.parse().unwrap());
+    let mut grid: Grid = parse_file("puzzle-input/day11.txt").parse().unwrap();
     grid.default_char = '.';
     let grid = grid; //Remove mutability
                      /*println!("Grid: {0:?}\n\n{0}", grid);
