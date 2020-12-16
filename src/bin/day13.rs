@@ -54,7 +54,12 @@ fn part2(line: &str) -> u64 {
 fn check_timestamp(timestamp: u64, checks: &Vec<(u64, u8)>) -> bool {
     println!("Timestamp: {}", timestamp);
     for (bus, offset) in checks {
-        println!("\t + {} % {} = {}", offset, bus, (timestamp + u64::from(*offset)) % bus);
+        println!(
+            "\t + {} % {} = {}",
+            offset,
+            bus,
+            (timestamp + u64::from(*offset)) % bus
+        );
         if (timestamp + u64::from(*offset)) % bus != 0 {
             return false;
         }
